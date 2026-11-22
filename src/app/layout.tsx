@@ -18,11 +18,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "LUMI — Sun protection that goes wherever you go",
   description:
-    "LUMI is a concept-stage, refillable clip-on sunscreen with a collectible charm and a give-back model. Proposed product — not yet available.",
+    "LUMI is a concept-stage, refillable clip-on sunscreen with a collectible charm and a proposed cartridge take-back loop. Proposed product — not yet available.",
   openGraph: {
     title: "LUMI — Carry your sunshine",
     description:
-      "A concept-stage, refillable clip-on sunscreen. Glow on. Give back.",
+      "A concept-stage, refillable clip-on sunscreen. Glow on. Send it back.",
     type: "website",
   },
 };
