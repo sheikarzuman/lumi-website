@@ -62,7 +62,6 @@ export function Experience() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const photoY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
   const photoScale = useTransform(scrollYProgress, [0, 1], [1.2, 1.08]);
-  const renderY = useTransform(scrollYProgress, [0, 1], ["60px", "-90px"]);
   const stickerY = useTransform(scrollYProgress, [0, 1], ["40px", "-120px"]);
   const stickerRot = useTransform(scrollYProgress, [0, 1], [-14, 10]);
 
@@ -119,20 +118,6 @@ export function Experience() {
               is already with you when it is time to reapply.
             </p>
           </Reveal>
-          <motion.figure style={{ y: renderY }} className="mt-10 max-w-sm">
-            <div className="relative aspect-square overflow-hidden rounded-[2.5rem] shadow-lift">
-              <Image
-                src="/images/lumi-concept-render.jpg"
-                alt="Concept render of the LUMI shell, cartridge and mini clip-ons on a beach towel"
-                fill
-                sizes="(min-width: 768px) 24rem, 90vw"
-                className="object-cover"
-              />
-            </div>
-            <figcaption className="mt-3 flex items-center gap-3 text-xs text-plum-soft">
-              <StatusTag kind="mockup" label="Concept render, not a prototype" />
-            </figcaption>
-          </motion.figure>
         </div>
       </div>
 
