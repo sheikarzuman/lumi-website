@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ProductArt } from "@/components/product/ProductArt";
@@ -63,9 +62,6 @@ function Seal() {
 export function Experience() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const photoY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-  const photoScale = useTransform(scrollYProgress, [0, 1], [1.2, 1.08]);
-  const renderY = useTransform(scrollYProgress, [0, 1], ["60px", "-90px"]);
   const stickerY = useTransform(scrollYProgress, [0, 1], ["40px", "-120px"]);
   const stickerRot = useTransform(scrollYProgress, [0, 1], [-14, 10]);
 
@@ -89,18 +85,27 @@ export function Experience() {
       </div>
 
       <div className="relative mx-auto mt-16 grid max-w-7xl items-start gap-12 px-6 md:mt-24 md:grid-cols-12 md:gap-8 md:px-12">
-        {/* lifestyle photo, parallax inside a rounded mask */}
+        {/* chip-equipped shell lineup (concept render) */}
         <div className="relative md:col-span-7">
-          <div className="relative aspect-[5/4] overflow-hidden rounded-[2.5rem] shadow-lift md:rounded-[3.5rem]">
-            <motion.div style={{ y: photoY, scale: photoScale }} className="absolute inset-0">
-              <Image
-                src="/images/lumi-lifestyle.jpg"
-                alt="Six pastel LUMI clip-ons with sun charms, clipped to bags on a linen towel (concept visual)"
-                fill
-                sizes="(min-width: 768px) 58vw, 100vw"
-                className="object-cover"
-              />
-            </motion.div>
+          <div className="relative aspect-[5/4] overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-blush/60 via-cream to-lavender/60 shadow-lift md:rounded-[3.5rem]">
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white/50 to-transparent" aria-hidden />
+            <div className="absolute inset-0 grid grid-cols-3 items-center gap-4 px-[8%]">
+              {LINEUP.map((s, i) => (
+                <div
+                  key={s.id}
+                  className="drop-shadow-[0_24px_24px_rgba(59,38,73,0.22)]"
+                  style={{ transform: `translateY(${i === 1 ? -22 : 8}px) rotate(${(i - 1) * 7}deg) scale(1.1)` }}
+                >
+                  <ProductArt
+                    shell={s.shell}
+                    deep={s.deep}
+                    charm={s.charm}
+                    finish={s.finish}
+                    title={`${s.name} LUMI shell with tap chip (concept visual)`}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
           <motion.div style={{ y: stickerY, rotate: stickerRot }} className="absolute -right-3 -top-10 z-10 w-24 md:-right-10 md:w-36">
             <ProductArt
@@ -115,7 +120,10 @@ export function Experience() {
           <div className="absolute -bottom-10 left-4 z-10 md:-left-10 md:-bottom-14">
             <Seal />
           </div>
-          <p className="mt-4 text-xs text-plum-soft md:mt-6">Concept visual. LUMI is not yet a physical product.</p>
+          <p className="mt-4 flex flex-wrap items-center gap-3 pl-24 text-xs text-plum-soft md:mt-6 md:pl-32">
+            <StatusTag kind="mockup" label="Concept render, not a prototype" />
+            <span>Every shell carries a tap chip. LUMI is not yet a physical product.</span>
+          </p>
         </div>
 
         <div className="md:col-span-5 md:pt-24">
@@ -129,32 +137,6 @@ export function Experience() {
               is already with you when it is time to reapply.
             </p>
           </Reveal>
-          <motion.figure style={{ y: renderY }} className="mt-10 max-w-sm">
-            <div className="relative aspect-square overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-blush/60 via-cream to-lavender/60 shadow-lift">
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white/50 to-transparent" aria-hidden />
-              <div className="absolute inset-0 grid grid-cols-3 items-center gap-1 px-3">
-                {LINEUP.map((s, i) => (
-                  <div
-                    key={s.id}
-                    className="drop-shadow-[0_18px_18px_rgba(59,38,73,0.22)]"
-                    style={{ transform: `translateY(${i === 1 ? -18 : 6}px) rotate(${(i - 1) * 7}deg) scale(1.18)` }}
-                  >
-                    <ProductArt
-                      shell={s.shell}
-                      deep={s.deep}
-                      charm={s.charm}
-                      finish={s.finish}
-                      title={`${s.name} LUMI shell with tap chip (concept visual)`}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <figcaption className="mt-3 flex items-center gap-3 text-xs text-plum-soft">
-              <StatusTag kind="mockup" label="Concept render, not a prototype" />
-              <span>Every shell carries a tap chip.</span>
-            </figcaption>
-          </motion.figure>
         </div>
       </div>
 
