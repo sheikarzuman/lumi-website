@@ -15,6 +15,8 @@ import { SHOWCASE_SHELLS } from "@/lib/rarity";
 
 const WORDMARK = ["L", "U", "M", "I"];
 const CYCLE_MS = 4200;
+/** The shell shown when the page opens; the auto-cycle then continues from here. */
+const FIRST_SHELL_INDEX = Math.max(0, SHOWCASE_SHELLS.findIndex((s) => s.id === "aurora"));
 
 interface FloaterSpec {
   variant: number;
@@ -72,7 +74,7 @@ export function Hero() {
   const { ready } = useIntro();
   const sectionRef = useRef<HTMLElement>(null);
   const scene = useRef<SceneState>({ ...INITIAL_SCENE_STATE });
-  const [colorIdx, setColorIdx] = useState(0);
+  const [colorIdx, setColorIdx] = useState(FIRST_SHELL_INDEX);
   const [auto, setAuto] = useState(true);
   const { x: mx, y: my } = usePointerParallax();
 
