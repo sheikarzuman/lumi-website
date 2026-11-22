@@ -101,7 +101,15 @@ export function Footer() {
               rel="noopener noreferrer"
               className="rounded-full border border-cream/25 px-4 py-2 transition-colors hover:border-sun hover:text-sun"
             >
-              Instagram
+              LUMI Instagram
+            </a>
+            <a
+              href={FOUNDER.instagram.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-cream/25 px-4 py-2 transition-colors hover:border-sun hover:text-sun"
+            >
+              Founder&rsquo;s Instagram
             </a>
             <a
               href={WHATSAPP.href}

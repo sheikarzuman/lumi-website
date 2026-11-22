@@ -12,6 +12,7 @@ export const FOUNDER = {
   ],
   location: "Coimbatore, Tamil Nadu",
   linkedin: "https://linkedin.com/in/sheikarzuman",
+  instagram: { handle: "@sheiiik._", href: "https://www.instagram.com/sheiiik._/" },
 } as const;
 
 /** Public founder contact details, shown on /investors and in the footer. */

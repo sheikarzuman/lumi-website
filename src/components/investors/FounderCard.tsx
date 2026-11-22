@@ -44,7 +44,7 @@ export function FounderCard() {
                 <MapPin size={16} aria-hidden /> Based in {FOUNDER.location}
               </p>
               <p className="mt-2 text-sm text-cream/75">
-                {EMAIL} · WhatsApp {WHATSAPP_DISPLAY}
+                {EMAIL} · WhatsApp {WHATSAPP_DISPLAY} · Instagram {FOUNDER.instagram.handle}
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <a href={FOUNDER.linkedin} {...external} className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3 font-semibold text-plum transition-transform hover:scale-[1.03]">
@@ -65,6 +65,14 @@ export function FounderCard() {
                   className="inline-flex items-center gap-2 rounded-full border-2 border-cream/40 px-6 py-3 font-semibold transition-colors hover:border-sun hover:text-sun"
                 >
                   {WHATSAPP.label}
+                  <ArrowUpRight size={16} aria-hidden />
+                </a>
+                <a
+                  href={FOUNDER.instagram.href}
+                  {...external}
+                  className="inline-flex items-center gap-2 rounded-full border-2 border-cream/40 px-6 py-3 font-semibold transition-colors hover:border-sun hover:text-sun"
+                >
+                  Instagram
                   <ArrowUpRight size={16} aria-hidden />
                 </a>
               </div>
