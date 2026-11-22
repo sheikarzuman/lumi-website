@@ -7,7 +7,7 @@ import { ProductArt } from "@/components/product/ProductArt";
 import { Button } from "@/components/ui/Button";
 import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { VARIANTS } from "@/lib/lumi";
+import { SHOWCASE_SHELLS } from "@/lib/rarity";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const RING_SECONDS = 70;
@@ -73,8 +73,8 @@ export function FinalCta() {
         animate={{ rotate: 360 }}
         transition={{ duration: RING_SECONDS, repeat: Infinity, ease: "linear" }}
       >
-        {VARIANTS.map((v, i) => {
-          const angle = (i / VARIANTS.length) * 360;
+        {SHOWCASE_SHELLS.map((v, i) => {
+          const angle = (i / SHOWCASE_SHELLS.length) * 360;
           return (
             <div
               key={v.id}
@@ -86,7 +86,7 @@ export function FinalCta() {
                 transition={{ duration: RING_SECONDS, repeat: Infinity, ease: "linear" }}
                 className="-translate-x-1/2 -translate-y-1/2 opacity-90 drop-shadow-[0_20px_30px_rgba(0,0,0,0.35)]"
               >
-                <ProductArt shell={v.shell} deep={v.deep} charm={v.charm} />
+                <ProductArt shell={v.shell} deep={v.deep} charm={v.charm} finish={v.finish} />
               </motion.div>
             </div>
           );

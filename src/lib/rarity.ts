@@ -40,6 +40,12 @@ const CHASE: CollectionShell[] = [
 /** Every shell in the proposed collection, commons first and the chase pieces last. */
 export const COLLECTION: readonly CollectionShell[] = [...COMMONS, ...CHASE];
 
+/** Homepage colour pickers: the six commons plus the Epic (Aurora) and Secret (Golden Hour) shells. */
+export const SHOWCASE_SHELLS: readonly CollectionShell[] = [
+  ...COMMONS,
+  ...CHASE.filter((s) => s.rarity === "epic" || s.rarity === "secret"),
+];
+
 /** Each shell's own chance: the tier's share split evenly across the shells in that tier. */
 export function oddsPerShell(rarity: RarityId): number {
   const count = COLLECTION.filter((s) => s.rarity === rarity).length;

@@ -12,7 +12,8 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StatusTag } from "@/components/ui/StatusTag";
 import { usePointerParallax } from "@/hooks/usePointerParallax";
 import { cn } from "@/lib/cn";
-import { PARTS, VARIANTS } from "@/lib/lumi";
+import { PARTS } from "@/lib/lumi";
+import { SHOWCASE_SHELLS } from "@/lib/rarity";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -85,7 +86,7 @@ export function MeetLumi() {
     { scope: root },
   );
 
-  const variant = VARIANTS[colorIdx];
+  const variant = SHOWCASE_SHELLS[colorIdx];
   const current = active >= 0 ? PARTS[active] : null;
 
   return (
@@ -174,19 +175,20 @@ export function MeetLumi() {
           <div className="relative order-1 md:order-2">
             <ProductCanvas
               variant={variant}
+              finish={variant.finish}
               state={scene}
               className="absolute inset-0"
               fallback={
                 <div className="grid h-full place-items-center">
                   <div className="w-[min(50vw,300px)] animate-float">
-                    <ProductArt shell={variant.shell} deep={variant.deep} charm={variant.charm} />
+                    <ProductArt shell={variant.shell} deep={variant.deep} charm={variant.charm} finish={variant.finish} />
                   </div>
                 </div>
               }
             />
             <div className="absolute bottom-3 right-4 z-10 flex items-center gap-2 rounded-full bg-cream/80 px-3 py-2 shadow-soft backdrop-blur md:bottom-8 md:right-10">
               <span className="pr-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-plum-soft">Try a shell</span>
-              {VARIANTS.map((v, i) => (
+              {SHOWCASE_SHELLS.map((v, i) => (
                 <button
                   key={v.id}
                   aria-label={`${v.name} shell`}

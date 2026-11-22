@@ -11,6 +11,7 @@ import { RevealText } from "@/components/ui/RevealText";
 import { usePointerParallax } from "@/hooks/usePointerParallax";
 import { cn } from "@/lib/cn";
 import { TAGLINE, VARIANTS } from "@/lib/lumi";
+import { SHOWCASE_SHELLS } from "@/lib/rarity";
 
 const WORDMARK = ["L", "U", "M", "I"];
 const CYCLE_MS = 4200;
@@ -94,11 +95,11 @@ export function Hero() {
   // cycle through the six shells until the visitor picks one
   useEffect(() => {
     if (!auto || !ready) return;
-    const id = window.setInterval(() => setColorIdx((i) => (i + 1) % VARIANTS.length), CYCLE_MS);
+    const id = window.setInterval(() => setColorIdx((i) => (i + 1) % SHOWCASE_SHELLS.length), CYCLE_MS);
     return () => window.clearInterval(id);
   }, [auto, ready]);
 
-  const variant = VARIANTS[colorIdx];
+  const variant = SHOWCASE_SHELLS[colorIdx];
 
   return (
     <section id="top" ref={sectionRef} className="grain relative isolate min-h-[100svh] overflow-hidden">
@@ -152,12 +153,13 @@ export function Hero() {
       >
         <ProductCanvas
           variant={variant}
+          finish={variant.finish}
           state={scene}
           className="h-full w-full"
           fallback={
             <div className="grid h-full place-items-center">
               <div className="w-[min(60vw,320px)] animate-float">
-                <ProductArt shell={variant.shell} deep={variant.deep} charm={variant.charm} />
+                <ProductArt shell={variant.shell} deep={variant.deep} charm={variant.charm} finish={variant.finish} />
               </div>
             </div>
           }
@@ -211,7 +213,7 @@ export function Hero() {
               Shell · {variant.name}
             </p>
             <div className="flex gap-2" role="group" aria-label="Choose a shell colour">
-              {VARIANTS.map((v, i) => (
+              {SHOWCASE_SHELLS.map((v, i) => (
                 <button
                   key={v.id}
                   aria-label={`${v.name} shell`}
