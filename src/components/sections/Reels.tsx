@@ -16,7 +16,7 @@ const REELS = [
   {
     id: "tap",
     title: "Tap. Timer. Done.",
-    body: "Hold your phone to the passive chip and a reapply reminder starts. No battery in the shell.",
+    body: "Hold your phone to the passive chip and LUMI sets a reminder from your live UV Index and weather. No battery in the shell.",
     label: "LUMI concept reel: tapping the RFID chip starts a reapply reminder",
     cta: { href: "/app", text: "Try the reminder demo" },
   },

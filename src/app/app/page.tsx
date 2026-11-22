@@ -4,7 +4,7 @@ import { ReminderApp } from "@/components/app/ReminderApp";
 
 export const metadata: Metadata = {
   title: "LUMI Reapply Reminder",
-  description: "Tap your LUMI to start a sunscreen reapply timer. Concept prototype.",
+  description: "Tap your LUMI for UV- and weather-adaptive reapply guidance. Concept prototype.",
   robots: { index: false },
 };
 

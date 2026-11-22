@@ -75,15 +75,15 @@ export const PARTS = [
   {
     id: "chip",
     name: "RFID tap chip",
-    blurb: "A passive chip with no battery. Tap your phone to open the LUMI app and start your reapply timer.",
+    blurb: "A passive chip with no battery. Tap your phone to open the LUMI app for reapply guidance that adapts to UV and weather.",
   },
 ] as const;
 
 /** How the RFID tap chip flow is proposed to work. */
 export const TAP_STEPS = [
   { title: "Tap", body: "Hold your phone to the chip in the cap. The LUMI app opens on your shell.", tone: "bg-blush" },
-  { title: "Start the timer", body: "Hit “I just applied”. The ring starts counting down to your next reapply.", tone: "bg-sun" },
-  { title: "Get nudged", body: "A notification tells you when it’s time, and one tap restarts the timer.", tone: "bg-mint" },
+  { title: "Read the sky", body: "LUMI checks your live UV Index and weather: 60 min at very high UV, up to 3 h when it’s low, or no timer at all on a rainy, low-UV day.", tone: "bg-sun" },
+  { title: "Get nudged", body: "A notification tells you when it’s time to reapply, and one tap restarts the timer.", tone: "bg-mint" },
 ] as const;
 
 export const PROBLEM_STAGES = [

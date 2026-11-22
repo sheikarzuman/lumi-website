@@ -14,7 +14,8 @@ interface StoredReminder {
   notified: boolean;
 }
 
-export const INTERVAL_OPTIONS = [60, 90, 120] as const;
+/** 60 / 90 / 120 / 180 min: the UV-adaptive intervals from lib/uvAdvice, also selectable by hand. */
+export const INTERVAL_OPTIONS = [60, 90, 120, 180] as const;
 const DEFAULT_INTERVAL_MIN = 120;
 const STORAGE_KEY = "lumi.reminder.v1";
 const TICK_MS = 1000;
@@ -153,6 +154,16 @@ export function useReminder() {
     });
   }, []);
 
+  /** Start (or restart) with a specific interval, e.g. the one recommended for the current UV Index. */
+  const startWith = useCallback((intervalMin: number) => {
+    const startedAt = Date.now();
+    setNow(startedAt);
+    updateState((s) => {
+      const durationMs = intervalMin * MS_PER_MIN;
+      return { ...s, intervalMin, durationMs, endsAt: startedAt + durationMs, notified: false };
+    });
+  }, []);
+
   const reset = useCallback(() => {
     updateState((s) => ({ ...s, endsAt: null, notified: false }));
   }, []);
@@ -179,6 +190,7 @@ export function useReminder() {
     intervalMin: state.intervalMin,
     permission,
     start,
+    startWith,
     reset,
     setIntervalMin,
     enableNotifications,

@@ -1,11 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Bell, BellOff, RotateCcw, Sun } from "lucide-react";
+import { Bell, BellOff, RotateCcw, ShieldCheck, Sun } from "lucide-react";
+import { ConditionsPanel } from "@/components/app/ConditionsPanel";
 import { ProductArt } from "@/components/product/ProductArt";
 import { StatusTag } from "@/components/ui/StatusTag";
 import { cn } from "@/lib/cn";
 import { RARITIES, findShell } from "@/lib/rarity";
+import { adviseReapply } from "@/lib/uvAdvice";
+import { useConditions, type ConditionsMode } from "@/hooks/useConditions";
 import { INTERVAL_OPTIONS, useReminder, type ReminderStatus } from "@/hooks/useReminder";
 
 const RING_RADIUS = 92;
@@ -22,7 +26,7 @@ function formatClock(ms: number): string {
 }
 
 function formatInterval(min: number): string {
-  return `${min / 60} h`;
+  return min % 60 === 0 ? `${min / 60} h` : `${min} min`;
 }
 
 const HEADLINES: Record<ReminderStatus, string> = {
@@ -35,6 +39,18 @@ export function ReminderApp() {
   const shell = findShell(useSearchParams().get("shell"));
   const rarity = RARITIES[shell.rarity];
   const r = useReminder();
+  const weather = useConditions();
+  const advice = weather.conditions ? adviseReapply(weather.conditions) : null;
+  // A hand-picked interval wins until the weather source changes.
+  const [override, setOverride] = useState<number | null>(null);
+  const recommendedMin = advice?.kind === "timer" ? advice.intervalMin : r.intervalMin;
+  const intervalMin = override ?? recommendedMin;
+  const skipToday = advice?.kind === "skip" && r.status === "idle";
+
+  const chooseConditions = (mode: ConditionsMode) => {
+    setOverride(null);
+    weather.choose(mode);
+  };
 
   const progress = r.status === "running" ? r.remainingMs / r.durationMs : r.status === "due" ? 0 : 1;
   const notificationsOn = r.permission === "granted";
@@ -61,10 +77,33 @@ export function ReminderApp() {
           </span>
         </header>
 
+        <ConditionsPanel
+          conditions={weather.conditions}
+          mode={weather.mode}
+          status={weather.status}
+          error={weather.error}
+          onChoose={chooseConditions}
+        />
+
+        {skipToday && advice ? (
+          <section aria-label="Reapply guidance" className="rounded-[2rem] bg-mint/60 px-6 py-8 text-center">
+            <ShieldCheck size={40} className="mx-auto" aria-hidden />
+            <h1 aria-live="polite" className="mt-3 font-display text-2xl font-extrabold tracking-tight">
+              {advice.headline}
+            </h1>
+            <p className="mt-2 text-sm text-plum/75">{advice.note}</p>
+            <p className="mt-3 text-xs text-plum/60">No countdown started. Tap your shell again if the sun comes out.</p>
+          </section>
+        ) : (
         <section aria-label="Reapply timer" className="text-center">
           <h1 aria-live="polite" className="font-display text-2xl font-extrabold tracking-tight">
             {HEADLINES[r.status]}
           </h1>
+          {advice?.kind === "timer" && (
+            <p className="mt-1 text-sm font-semibold text-plum/75">
+              {advice.headline} <span className="font-normal text-plum/60">{advice.note}</span>
+            </p>
+          )}
           <div className="relative mx-auto mt-4 aspect-square w-64">
             <svg viewBox="0 0 220 220" className="h-full w-full -rotate-90" aria-hidden>
               <circle cx="110" cy="110" r={RING_RADIUS} fill="none" stroke={shell.shell} strokeOpacity="0.35" strokeWidth="14" />
@@ -84,7 +123,7 @@ export function ReminderApp() {
             <div className="absolute inset-0 grid place-items-center">
               <div>
                 <p role="timer" className="font-display text-5xl font-extrabold tabular-nums tracking-tight">
-                  {r.ready ? formatClock(r.status === "idle" ? r.intervalMin * 60_000 : r.remainingMs) : "--:--"}
+                  {r.ready ? formatClock(r.status === "idle" ? intervalMin * 60_000 : r.remainingMs) : "--:--"}
                 </p>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-plum/60">
                   {r.status === "idle" ? "ready to start" : r.status === "running" ? "until reapply" : "overdue"}
@@ -93,16 +132,20 @@ export function ReminderApp() {
             </div>
           </div>
         </section>
+        )}
 
         <div className="space-y-3">
           <button
             type="button"
-            onClick={r.start}
-            disabled={!r.ready}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-plum px-7 py-4 font-semibold text-cream shadow-soft transition-transform hover:scale-[1.02] disabled:opacity-60"
+            onClick={() => r.startWith(intervalMin)}
+            disabled={!r.ready || !advice}
+            className={cn(
+              "flex w-full items-center justify-center gap-2 rounded-full px-7 py-4 font-semibold shadow-soft transition-transform hover:scale-[1.02] disabled:opacity-60",
+              skipToday ? "border-2 border-plum bg-transparent text-plum" : "bg-plum text-cream",
+            )}
           >
             <Sun size={18} />
-            {r.status === "idle" ? "I just applied" : "I reapplied. Restart timer"}
+            {skipToday ? `I applied anyway. Remind me in ${formatInterval(intervalMin)}` : r.status === "idle" ? "I just applied" : "I reapplied. Restart timer"}
           </button>
           {r.status !== "idle" && (
             <button
@@ -123,18 +166,25 @@ export function ReminderApp() {
               <button
                 key={min}
                 type="button"
-                aria-pressed={r.intervalMin === min}
-                onClick={() => r.setIntervalMin(min)}
+                aria-pressed={intervalMin === min}
+                onClick={() => setOverride(min)}
                 className={cn(
                   "flex-1 rounded-full px-3 py-2 text-sm font-semibold transition-colors",
-                  r.intervalMin === min ? "bg-plum text-cream" : "bg-white/70 hover:bg-white",
+                  intervalMin === min ? "bg-plum text-cream" : "bg-white/70 hover:bg-white",
                 )}
               >
                 {formatInterval(min)}
+                {advice?.kind === "timer" && advice.intervalMin === min && <span className="sr-only"> (recommended)</span>}
               </button>
             ))}
           </div>
-          <p className="text-xs text-plum/65">Sunscreen is commonly advised every 2 hours outdoors. A new interval applies from the next start.</p>
+          <p className="text-xs text-plum/65">
+            LUMI suggests an interval from the current UV Index (60 min at UV 8+, 90 min at 6–7, 2 h at 4–5, 3 h at 1–3). Pick
+            another any time; it applies from the next start.
+          </p>
+          <p className="text-xs text-plum/65">
+            Prototype guidance, not medical advice. Always reapply after swimming, sweating or towelling off.
+          </p>
         </fieldset>
 
         <section className="space-y-3 rounded-3xl bg-white/60 p-4">

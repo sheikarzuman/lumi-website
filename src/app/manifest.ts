@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "LUMI Reapply Reminder",
     short_name: "LUMI",
-    description: "Tap your LUMI to start a sunscreen reapply timer.",
+    description: "Tap your LUMI for reapply guidance that adapts to live UV Index and weather.",
     start_url: "/app",
     scope: "/",
     display: "standalone",

@@ -1,13 +1,13 @@
 "use client";
 
-import { ArrowUpRight, BellRing, Nfc, Timer } from "lucide-react";
+import { ArrowUpRight, BellRing, CloudSun, Nfc } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StatusTag } from "@/components/ui/StatusTag";
 import { TAP_STEPS } from "@/lib/lumi";
 
-const STEP_ICONS = [Nfc, Timer, BellRing] as const;
+const STEP_ICONS = [Nfc, CloudSun, BellRing] as const;
 const DEMO_HREF = "/app?shell=golden-hour";
 
 export function TapReminder() {
@@ -23,8 +23,9 @@ export function TapReminder() {
           className="mt-4 font-display text-[clamp(2rem,4.4vw,3.8rem)] font-bold leading-[1.04] tracking-tight"
         />
         <p className="mt-5 max-w-2xl text-lg text-plum/75">
-          A passive RFID chip sits in the cap, with no battery. Hold your phone to it after you apply, and the LUMI app
-          opens with a reapply timer already waiting.
+          A passive RFID chip sits in the cap, with no battery. Hold your phone to it and the LUMI app checks your live UV
+          Index and weather: on a high-UV day it sets a shorter reapply timer, and on a rainy or overcast day with low UV it
+          tells you to skip it.
         </p>
 
         <ol className="mt-12 grid gap-5 md:grid-cols-3">
