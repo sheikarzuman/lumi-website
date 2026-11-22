@@ -9,8 +9,11 @@ import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StatusTag } from "@/components/ui/StatusTag";
 import { VARIANTS } from "@/lib/lumi";
+import { findShell } from "@/lib/rarity";
 
-const MARQUEE_WORDS = ["Protection", "meets", "personality", "✺"];
+const GOLDEN = findShell("golden-hour");
+const LINEUP = [findShell("cherry"), findShell("aurora"), findShell("cobalt")];
+const MARQUEE_WORDS =["Protection", "meets", "personality", "✺"];
 const WAYS = [
   { title: "On your bag", body: "Clip it to a strap or zip. It rides along, in reach.", variant: 1 },
   { title: "On your keys", body: "Swap the charm, swap the mood. Same shell, new look.", variant: 2 },
@@ -62,6 +65,9 @@ export function Experience() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const photoY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
   const photoScale = useTransform(scrollYProgress, [0, 1], [1.2, 1.08]);
+  const renderY = useTransform(scrollYProgress, [0, 1], ["60px", "-90px"]);
+  const stickerY = useTransform(scrollYProgress, [0, 1], ["40px", "-120px"]);
+  const stickerRot = useTransform(scrollYProgress, [0, 1], [-14, 10]);
 
   return (
     <section id="experience" ref={ref} className="relative overflow-hidden bg-cream py-24 md:py-32">
@@ -96,6 +102,16 @@ export function Experience() {
               />
             </motion.div>
           </div>
+          <motion.div style={{ y: stickerY, rotate: stickerRot }} className="absolute -right-3 -top-10 z-10 w-24 md:-right-10 md:w-36">
+            <ProductArt
+              shell={GOLDEN.shell}
+              deep={GOLDEN.deep}
+              charm={GOLDEN.charm}
+              finish={GOLDEN.finish}
+              title="Golden Hour LUMI shell with tap chip (concept visual)"
+              className="drop-shadow-[0_20px_20px_rgba(59,38,73,0.25)]"
+            />
+          </motion.div>
           <div className="absolute -bottom-10 left-4 z-10 md:-left-10 md:-bottom-14">
             <Seal />
           </div>
@@ -113,6 +129,32 @@ export function Experience() {
               is already with you when it is time to reapply.
             </p>
           </Reveal>
+          <motion.figure style={{ y: renderY }} className="mt-10 max-w-sm">
+            <div className="relative aspect-square overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-blush/60 via-cream to-lavender/60 shadow-lift">
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white/50 to-transparent" aria-hidden />
+              <div className="absolute inset-0 grid grid-cols-3 items-center gap-1 px-3">
+                {LINEUP.map((s, i) => (
+                  <div
+                    key={s.id}
+                    className="drop-shadow-[0_18px_18px_rgba(59,38,73,0.22)]"
+                    style={{ transform: `translateY(${i === 1 ? -18 : 6}px) rotate(${(i - 1) * 7}deg) scale(1.18)` }}
+                  >
+                    <ProductArt
+                      shell={s.shell}
+                      deep={s.deep}
+                      charm={s.charm}
+                      finish={s.finish}
+                      title={`${s.name} LUMI shell with tap chip (concept visual)`}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <figcaption className="mt-3 flex items-center gap-3 text-xs text-plum-soft">
+              <StatusTag kind="mockup" label="Concept render, not a prototype" />
+              <span>Every shell carries a tap chip.</span>
+            </figcaption>
+          </motion.figure>
         </div>
       </div>
 
