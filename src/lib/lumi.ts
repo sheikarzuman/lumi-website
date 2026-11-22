@@ -1,7 +1,7 @@
 /**
  * Single source of truth for LUMI's brand tokens and copy.
  * Everything here is sourced from the LUMI pitch deck (Team 5, MBA Challenge 05).
- * LUMI is concept stage: formulation, manufacturer and NGO partner are NOT finalised.
+ * LUMI is concept stage: formulation, manufacturer and recycling partner are NOT finalised.
  */
 
 export interface ShellVariant {
@@ -35,7 +35,7 @@ export const NAV_LINKS = [
   { id: "collection", label: "Collection" },
   { id: "innovation", label: "Innovation" },
   { id: "tap", label: "Tap" },
-  { id: "cares", label: "LUMI CARES" },
+  { id: "loop", label: "LUMI LOOP" },
 ] as const;
 
 export const SECTION_IDS = [
@@ -45,7 +45,7 @@ export const SECTION_IDS = [
   "collection",
   "innovation",
   "tap",
-  "cares",
+  "loop",
   "experience",
   "join",
 ] as const;
@@ -150,16 +150,6 @@ export const FORMULATION_TARGETS = [
   "Suits hot, humid weather",
   "Sweat and water resistant*",
 ] as const;
-
-export const CARES_FLOW = [
-  { title: "Every 3 bought", body: "Three LUMI cartridges sold.", tone: "bg-blush" },
-  { title: "1 meal funded", body: "A set contribution per cartridge, fixed in advance.", tone: "bg-sun" },
-  { title: "Prospective partner", body: "An NGO partner is being considered. None is confirmed.", tone: "bg-mint" },
-  { title: "Tracked and reported", body: "Proposed: a QR on pack and a quarterly report of meals funded and delivered.", tone: "bg-lavender" },
-] as const;
-
-/** Budget assumption from the deck: ₹15 per meal across 3 cartridges = ₹5 per cartridge. A starter kit holds 2 cartridges (₹10). */
-export const CARES_MODEL = { cartridgesPerMeal: 3, rupeesPerCartridge: 5, rupeesPerMeal: 15, cartridgesPerKit: 2 } as const;
 
 /** Preliminary pricing assumptions from the deck (MRP, GST included). Not final, not supplier quotes. */
 export const PRICING = { kit: 899, refill: 449, cartridgeMl: 60 } as const;

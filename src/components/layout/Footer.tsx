@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 const STATUS_ROWS = [
   { label: "Formulation", status: "Not finalised", note: "No test results exist." },
   { label: "Manufacturer", status: "None selected", note: "A qualified cosmetic partner is needed." },
-  { label: "NGO partner", status: "Prospective", note: "Nothing confirmed. No meals funded yet." },
+  { label: "Recycling partner", status: "Prospective", note: "Nothing confirmed. No cartridges collected yet." },
   { label: "Pricing", status: "Assumption", note: `Starter kit ₹${PRICING.kit}, ${PRICING.cartridgeMl} ml refill ₹${PRICING.refill} (MRP incl. GST). Not final.` },
   { label: "Availability", status: "Not for sale", note: "No product exists to buy yet." },
 ] as const;

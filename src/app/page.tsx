@@ -1,12 +1,12 @@
 import { ClientShell } from "@/components/layout/ClientShell";
 import { Footer } from "@/components/layout/Footer";
-import { Cares } from "@/components/sections/Cares";
 import { Collection } from "@/components/sections/Collection";
 import { Experience } from "@/components/sections/Experience";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Hero } from "@/components/sections/Hero";
 import { Innovation } from "@/components/sections/Innovation";
 import { InvestorTeaser } from "@/components/sections/InvestorTeaser";
+import { Loop } from "@/components/sections/Loop";
 import { Waitlist } from "@/components/sections/Waitlist";
 import { MeetLumi } from "@/components/sections/MeetLumi";
 import { Problem } from "@/components/sections/Problem";
@@ -24,7 +24,7 @@ export default function Home() {
         <Innovation />
         <TapReminder />
         <Reels />
-        <Cares />
+        <Loop />
         <Experience />
         <Waitlist />
         <InvestorTeaser />

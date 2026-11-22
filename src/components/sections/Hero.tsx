@@ -180,7 +180,7 @@ export function Hero() {
             transition={{ delay: 0.9, duration: 0.8 }}
             className="mb-3 max-w-md rounded-2xl bg-sun/90 px-4 py-2.5 text-[0.8rem] leading-snug shadow-soft backdrop-blur md:mb-4 md:py-3 md:text-sm"
           >
-            <strong className="font-bold">Concept stage:</strong> formulation, manufacturer and NGO partner are not yet
+            <strong className="font-bold">Concept stage:</strong> formulation, manufacturer and recycling partner are not yet
             finalised.
           </motion.p>
           <RevealText
