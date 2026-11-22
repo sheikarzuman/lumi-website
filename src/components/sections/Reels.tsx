@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ReelPlayer } from "@/components/ui/ReelPlayer";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { StatusTag } from "@/components/ui/StatusTag";
+import { INSTAGRAM } from "@/lib/founder";
 
 const REELS = [
   {
@@ -59,7 +60,15 @@ export function Reels() {
           ))}
         </div>
 
-        <div className="mt-12 flex justify-center">
+        <div className="mt-12 flex flex-col items-center gap-5">
+          <a
+            href={INSTAGRAM.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full border-2 border-cream/40 px-6 py-3 font-semibold transition-colors hover:border-sun hover:text-sun focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sun"
+          >
+            Follow {INSTAGRAM.handle} on Instagram <ArrowUpRight size={16} aria-hidden />
+          </a>
           <StatusTag kind="mockup" tone="ghost" label="Concept visuals · proposed odds" />
         </div>
       </div>

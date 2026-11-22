@@ -21,6 +21,12 @@ export const WHATSAPP_DISPLAY = "+91 63694 11388";
 
 const waLink = (text: string) => `https://wa.me/${WHATSAPP_DIGITS}?text=${encodeURIComponent(text)}`;
 
+/** LUMI's Instagram account, linked from the footer and the Reels section. */
+export const INSTAGRAM = {
+  handle: "@lumi__in",
+  href: "https://www.instagram.com/lumi__in/",
+} as const;
+
 export const CONTACT = {
   href: `mailto:${EMAIL}?subject=${encodeURIComponent("LUMI inquiry")}`,
   label: "Email the founder",

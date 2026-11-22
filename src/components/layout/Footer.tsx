@@ -1,4 +1,4 @@
-import { CONTACT, FOUNDER, WHATSAPP } from "@/lib/founder";
+import { CONTACT, FOUNDER, INSTAGRAM, WHATSAPP } from "@/lib/founder";
 import { FORMULATION_TARGETS, PRICING, ROADMAP, TAGLINE } from "@/lib/lumi";
 import { cn } from "@/lib/cn";
 
@@ -19,6 +19,14 @@ export function Footer() {
             <div>
               <p className="font-display text-6xl font-extrabold tracking-tight">LUMI</p>
               <p className="mt-3 max-w-xs text-cream/75">{TAGLINE}</p>
+              <a
+                href={INSTAGRAM.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-sun px-4 py-2 text-sm font-bold text-plum transition-transform hover:scale-[1.03]"
+              >
+                Follow {INSTAGRAM.handle} on Instagram
+              </a>
               <p className="mt-8 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-sun">Proposed targets, not claims</p>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {FORMULATION_TARGETS.map((t) => (
@@ -86,6 +94,14 @@ export function Footer() {
               className="rounded-full border border-cream/25 px-4 py-2 transition-colors hover:border-sun hover:text-sun"
             >
               Email
+            </a>
+            <a
+              href={INSTAGRAM.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-cream/25 px-4 py-2 transition-colors hover:border-sun hover:text-sun"
+            >
+              Instagram
             </a>
             <a
               href={WHATSAPP.href}
