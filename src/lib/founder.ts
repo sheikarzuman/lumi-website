@@ -1,7 +1,5 @@
 /**
  * Founder profile and contact links. Swap the URLs here and every page (investors, footer) updates.
- * No public email has been confirmed yet, so "contact" falls back to the investor inquiry form and
- * "Book a 15-Min Intro Call" falls back to LinkedIn messaging.
  */
 export const FOUNDER = {
   name: "Sheik Arzuman",
@@ -16,19 +14,27 @@ export const FOUNDER = {
   linkedin: "https://linkedin.com/in/sheikarzuman",
 } as const;
 
-/** Placeholder: set to a "mailto:" address once a public founder email is confirmed. */
-const CONTACT_EMAIL_HREF = "";
+/** Public founder contact details, shown on /investors and in the footer. */
+export const EMAIL = "sheikarzu@gmail.com";
+const WHATSAPP_DIGITS = "916369411388";
+export const WHATSAPP_DISPLAY = "+91 63694 11388";
 
-/** Placeholder: set to a Cal.com / Calendly link to make "Book a 15-Min Intro Call" open a scheduler. */
-const INTRO_CALL_HREF = "";
+const waLink = (text: string) => `https://wa.me/${WHATSAPP_DIGITS}?text=${encodeURIComponent(text)}`;
 
 export const CONTACT = {
-  href: CONTACT_EMAIL_HREF || "/investors#inquiry",
-  label: CONTACT_EMAIL_HREF ? "Email the founder" : "Contact the founder",
+  href: `mailto:${EMAIL}?subject=${encodeURIComponent("LUMI inquiry")}`,
+  label: "Email the founder",
   external: false,
 } as const;
 
+export const WHATSAPP = {
+  href: waLink("Hi Sheik, I found LUMI and would like to connect."),
+  label: "WhatsApp",
+  external: true,
+} as const;
+
+/** "Book a 15-Min Intro Call" opens a WhatsApp chat until a scheduler link exists. */
 export const INTRO_CALL = {
-  href: INTRO_CALL_HREF || FOUNDER.linkedin,
+  href: waLink("Hi Sheik, I'd like to book a 15-minute intro call about LUMI."),
   external: true,
 } as const;

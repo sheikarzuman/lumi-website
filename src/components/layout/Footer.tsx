@@ -1,4 +1,4 @@
-import { CONTACT, FOUNDER } from "@/lib/founder";
+import { CONTACT, FOUNDER, WHATSAPP } from "@/lib/founder";
 import { FORMULATION_TARGETS, PRICING, ROADMAP, TAGLINE } from "@/lib/lumi";
 import { cn } from "@/lib/cn";
 
@@ -85,7 +85,15 @@ export function Footer() {
               {...(CONTACT.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="rounded-full border border-cream/25 px-4 py-2 transition-colors hover:border-sun hover:text-sun"
             >
-              Contact
+              Email
+            </a>
+            <a
+              href={WHATSAPP.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-cream/25 px-4 py-2 transition-colors hover:border-sun hover:text-sun"
+            >
+              WhatsApp
             </a>
             <a href="/investors" className="rounded-full bg-sun px-4 py-2 text-plum transition-transform hover:scale-[1.03]">
               For Investors →

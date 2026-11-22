@@ -62,8 +62,6 @@ export function Experience() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const photoY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
   const photoScale = useTransform(scrollYProgress, [0, 1], [1.2, 1.08]);
-  const stickerY = useTransform(scrollYProgress, [0, 1], ["40px", "-120px"]);
-  const stickerRot = useTransform(scrollYProgress, [0, 1], [-14, 10]);
 
   return (
     <section id="experience" ref={ref} className="relative overflow-hidden bg-cream py-24 md:py-32">
@@ -98,9 +96,6 @@ export function Experience() {
               />
             </motion.div>
           </div>
-          <motion.div style={{ y: stickerY, rotate: stickerRot }} className="absolute -right-3 -top-10 z-10 w-24 md:-right-10 md:w-36">
-            <ProductArt shell={VARIANTS[1].shell} deep={VARIANTS[1].deep} charm={VARIANTS[1].charm} className="drop-shadow-[0_20px_20px_rgba(59,38,73,0.25)]" />
-          </motion.div>
           <div className="absolute -bottom-10 left-4 z-10 md:-left-10 md:-bottom-14">
             <Seal />
           </div>

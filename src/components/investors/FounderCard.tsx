@@ -1,7 +1,7 @@
 import { ArrowUpRight, GraduationCap, MapPin } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { CONTACT, FOUNDER } from "@/lib/founder";
+import { CONTACT, EMAIL, FOUNDER, WHATSAPP, WHATSAPP_DISPLAY } from "@/lib/founder";
 
 /** LinkedIn-style "in" mark (lucide ships no brand icons). Pass bg/text colour classes. */
 export function LinkedInMark({ className = "bg-plum text-cream" }: { className?: string }) {
@@ -43,6 +43,9 @@ export function FounderCard() {
               <p className="mt-5 flex items-center gap-2 text-sm text-cream/75">
                 <MapPin size={16} aria-hidden /> Based in {FOUNDER.location}
               </p>
+              <p className="mt-2 text-sm text-cream/75">
+                {EMAIL} · WhatsApp {WHATSAPP_DISPLAY}
+              </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <a href={FOUNDER.linkedin} {...external} className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3 font-semibold text-plum transition-transform hover:scale-[1.03]">
                   <LinkedInMark />
@@ -54,6 +57,14 @@ export function FounderCard() {
                   className="inline-flex items-center gap-2 rounded-full border-2 border-cream/40 px-6 py-3 font-semibold transition-colors hover:border-sun hover:text-sun"
                 >
                   {CONTACT.label}
+                  <ArrowUpRight size={16} aria-hidden />
+                </a>
+                <a
+                  href={WHATSAPP.href}
+                  {...external}
+                  className="inline-flex items-center gap-2 rounded-full border-2 border-cream/40 px-6 py-3 font-semibold transition-colors hover:border-sun hover:text-sun"
+                >
+                  {WHATSAPP.label}
                   <ArrowUpRight size={16} aria-hidden />
                 </a>
               </div>
