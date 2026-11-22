@@ -18,6 +18,7 @@ export function FinalCta() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const mx = useSpring(useMotionValue(50), { stiffness: 50, damping: 20 });
   const my = useSpring(useMotionValue(50), { stiffness: 50, damping: 20 });
@@ -30,15 +31,29 @@ export function FinalCta() {
     my.set(((e.clientY - r.top) / r.height) * 100);
   };
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!EMAIL_PATTERN.test(email.trim())) {
       setError("Please enter a valid email address.");
       return;
     }
-    // Concept stage: there is no backend yet, so nothing is stored or sent.
     setError("");
-    setDone(true);
+    setSending(true);
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contact: email.trim(), source: "final-cta" }),
+        signal: AbortSignal.timeout(12_000),
+      });
+      const body = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      if (res.ok && body.ok) setDone(true);
+      else setError(body.error ?? "Something went wrong. Please try again.");
+    } catch {
+      setError("Network problem. Check your connection and try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -113,7 +128,7 @@ export function FinalCta() {
                 </span>
                 <p className="font-display text-xl font-bold">Thank you. You are on the journey.</p>
                 <p className="mt-1 text-sm text-plum-soft">
-                  This is a concept-stage preview: this form does not store or send your email yet.
+                  We&rsquo;ll only email you about LUMI&rsquo;s progress. Nothing is on sale yet.
                 </p>
               </motion.div>
             ) : open ? (
@@ -142,8 +157,8 @@ export function FinalCta() {
                     aria-describedby={error ? "join-error" : undefined}
                     className="min-w-0 flex-1 rounded-full bg-transparent px-6 py-4 text-cream placeholder:text-cream/50 focus:outline-none"
                   />
-                  <Button type="submit" variant="sun">
-                    Count me in
+                  <Button type="submit" variant="sun" disabled={sending}>
+                    {sending ? "Joining…" : "Count me in"}
                   </Button>
                 </div>
                 {error && (
@@ -152,7 +167,7 @@ export function FinalCta() {
                   </p>
                 )}
                 <p className="text-xs text-cream/60">
-                  Concept-stage preview: this form does not store or send your email yet.
+                  We&rsquo;ll only use your email for LUMI updates. Concept stage: nothing is on sale.
                 </p>
               </motion.form>
             ) : (

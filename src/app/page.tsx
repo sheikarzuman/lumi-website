@@ -6,6 +6,8 @@ import { Experience } from "@/components/sections/Experience";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Hero } from "@/components/sections/Hero";
 import { Innovation } from "@/components/sections/Innovation";
+import { InvestorTeaser } from "@/components/sections/InvestorTeaser";
+import { Waitlist } from "@/components/sections/Waitlist";
 import { MeetLumi } from "@/components/sections/MeetLumi";
 import { Problem } from "@/components/sections/Problem";
 import { Reels } from "@/components/sections/Reels";
@@ -24,6 +26,8 @@ export default function Home() {
         <Reels />
         <Cares />
         <Experience />
+        <Waitlist />
+        <InvestorTeaser />
         <FinalCta />
       </main>
       <Footer />

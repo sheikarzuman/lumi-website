@@ -1,3 +1,4 @@
+import { CONTACT, FOUNDER } from "@/lib/founder";
 import { FORMULATION_TARGETS, PRICING, ROADMAP, TAGLINE } from "@/lib/lumi";
 import { cn } from "@/lib/cn";
 
@@ -58,6 +59,38 @@ export function Footer() {
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="mt-6 flex flex-col gap-5 rounded-[2rem] bg-cream/[0.06] p-6 md:flex-row md:items-center md:justify-between md:p-8">
+          <div className="flex items-center gap-4">
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[radial-gradient(circle_at_30%_30%,#FFE69A,#F5B2C7_60%,#CBB5EF)] font-display text-base font-extrabold text-plum">
+              {FOUNDER.initials}
+            </span>
+            <div>
+              <p className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-sun">Built by</p>
+              <p className="font-display font-bold">
+                {FOUNDER.name} <span className="font-normal text-cream/70">· {FOUNDER.role}</span>
+              </p>
+              <p className="text-xs text-cream/60">
+                MBA Candidate, Amrita School of Business ’28 · B.Tech ECE, VIT Chennai · {FOUNDER.location}
+              </p>
+            </div>
+          </div>
+          <nav aria-label="Founder and investor links" className="flex flex-wrap gap-2 text-sm font-semibold">
+            <a href={FOUNDER.linkedin} target="_blank" rel="noopener noreferrer" className="rounded-full border border-cream/25 px-4 py-2 transition-colors hover:border-sun hover:text-sun">
+              LinkedIn
+            </a>
+            <a
+              href={CONTACT.href}
+              {...(CONTACT.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="rounded-full border border-cream/25 px-4 py-2 transition-colors hover:border-sun hover:text-sun"
+            >
+              Contact
+            </a>
+            <a href="/investors" className="rounded-full bg-sun px-4 py-2 text-plum transition-transform hover:scale-[1.03]">
+              For Investors →
+            </a>
+          </nav>
         </div>
 
         <div className="mt-8 flex flex-col gap-2 text-xs text-cream/60 md:flex-row md:justify-between">

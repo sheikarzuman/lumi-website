@@ -8,6 +8,8 @@ import { scrollToId } from "@/lib/scroll";
 import { cn } from "@/lib/cn";
 import { useIntro } from "./ClientShell";
 
+const INVESTORS_HREF = "/investors";
+
 function useActiveSection() {
   const [active, setActive] = useState<string>("top");
 
@@ -35,6 +37,11 @@ export function Nav() {
 
   const go = (id: string) => {
     setOpen(false);
+    // On other pages (e.g. /investors) homepage sections don't exist: navigate to them instead.
+    if (!document.getElementById(id)) {
+      window.location.assign(id === "top" ? "/" : `/#${id}`);
+      return;
+    }
     // let the overlay close before scrolling so Lenis isn't fighting the scroll lock
     window.setTimeout(() => scrollToId(id), open ? 250 : 0);
   };
@@ -71,6 +78,12 @@ export function Nav() {
                 {l.label}
               </button>
             ))}
+            <a
+              href={INVESTORS_HREF}
+              className="rounded-full px-4 py-2 text-sm font-medium text-plum/70 transition-colors hover:bg-plum/8 hover:text-plum"
+            >
+              For Investors
+            </a>
           </div>
           <button
             onClick={() => go("join")}
@@ -122,6 +135,15 @@ export function Nav() {
                   {l.label}
                 </motion.button>
               ))}
+              <motion.a
+                href={INVESTORS_HREF}
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.25 + (NAV_LINKS.length + 1) * 0.06, duration: 0.6 }}
+                className="mt-4 text-left font-display text-2xl font-semibold text-sun"
+              >
+                For Investors →
+              </motion.a>
             </div>
             <p className="text-sm text-cream/60">Concept stage — all product details are proposals.</p>
           </motion.div>
